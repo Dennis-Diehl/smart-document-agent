@@ -1,0 +1,22 @@
+# Secrets & API Keys
+.env
+
+# Local Python environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# ChromaDB vector store (lokal generiert)
+vector_store/
+
+# Test PDFs
+tests/*.pdf
+
+# pyenv
+.python-version
+
+# macOS
+.DS_Store

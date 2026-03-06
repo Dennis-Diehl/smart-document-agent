@@ -1,0 +1,10 @@
+langchain
+langchain-community
+langchain-google-genai
+langchain-groq
+langchain-chroma 
+chromadb
+ragas
+streamlit
+python-dotenv
+pypdf
