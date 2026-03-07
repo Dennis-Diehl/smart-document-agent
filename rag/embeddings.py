@@ -9,6 +9,8 @@ load_dotenv()
 class EmbeddingGenerator:
     def __init__(self):
         self.api_key = os.getenv("GOOGLE_API_KEY")
+        if not self.api_key:
+            raise ValueError("GOOGLE_API_KEY is not set in .env")
         self.embeddings_model = "models/gemini-embedding-001"
 
     def get_embedding_model(self):

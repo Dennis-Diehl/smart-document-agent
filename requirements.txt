@@ -1,12 +1,32 @@
-langchain
-langchain-community
-langchain-classic
-langchain-google-genai
-langchain-groq
-langchain-openai
-langchain-chroma 
-chromadb
-ragas
-streamlit
-python-dotenv
-pypdf
+# LangChain
+langchain==1.2.10
+langchain-core==1.2.17
+langchain-text-splitters==1.1.1
+langchain-community==0.4.1
+langchain-classic==1.0.1
+langchain-chroma==1.1.0
+langchain-google-genai==4.2.1
+langchain-groq==1.1.2
+langchain-openai==1.1.10
+
+# Vector store & embeddings
+chromadb==1.5.2
+
+# Document loading
+pypdf==6.7.5
+
+# LLM clients (transitive, aber explizit genutzt)
+groq==0.37.1
+openai==2.26.0
+
+# Evaluation
+ragas==0.4.3
+
+# UI
+streamlit==1.55.0
+
+# Utilities
+python-dotenv==1.2.2
+
+# Jupyter (für tests/rag_test.ipynb)
+ipykernel==7.2.0

@@ -12,13 +12,21 @@ class RAGChain:
         self.retriever = retriever
 
         if llm == "groq":
-            self.llm = ChatGroq(model="llama-3.3-70b-versatile", api_key=os.getenv("GROQ_API_KEY"))
+            groq_key = os.getenv("GROQ_API_KEY")
+            if not groq_key:
+                raise ValueError("GROQ_API_KEY is not set in .env")
+            self.llm = ChatGroq(model="llama-3.3-70b-versatile", api_key=groq_key)
         elif llm == "openrouter":
+            openrouter_key = os.getenv("OPENROUTER_API_KEY")
+            if not openrouter_key:
+                raise ValueError("OPENROUTER_API_KEY is not set in .env")
             self.llm = ChatOpenAI(
                 model="stepfun/step-3.5-flash:free",
-                api_key=os.getenv("OPENROUTER_API_KEY"),
+                api_key=openrouter_key,
                 base_url="https://openrouter.ai/api/v1",
             )
+        else:
+            raise ValueError(f"Unknown LLM choice: {llm}")
 
     def run(self, query):
         """
@@ -49,6 +57,10 @@ class RAGChain:
         prompt = f"Context:\n{context}\n\nQuestion: {query}\nAnswer:"
 
         # Step 4: send the prompt to the LLM and extract the response text
-        response = self.llm.invoke([HumanMessage(content=prompt)])
+        try:
+            response = self.llm.invoke([HumanMessage(content=prompt)])
+        except Exception as e:
+            raise RuntimeError(f"LLM call failed: {e}") from e
 
         return {"answer": response.content, "sources": relevant_chunks}
+

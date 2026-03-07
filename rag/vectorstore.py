@@ -20,6 +20,10 @@ class VectorStore:
         )
 
     def store(self, chunks):
+        if not chunks:
+            print("No chunks to store.")
+            return
+
         # All chunks from one PDF share the same source value
         new_source = chunks[0].metadata.get("source")
 
@@ -34,6 +38,7 @@ class VectorStore:
         self.vector_store.add_documents(chunks)
         print(f"'{new_source}': {len(chunks)} chunks stored successfully.")
 
+
     def get_retriever(self, strategy="similarity", k=3):
         if strategy == "similarity":
             # Returns the k most similar chunks to the query using cosine similarity on embeddings.
@@ -47,7 +52,10 @@ class VectorStore:
             # runs each against the vector store, and merges the results.
             # Helps when a single query wording might miss relevant chunks.
             base_retriever = self.vector_store.as_retriever(search_kwargs={"k": k})
-            llm = ChatGroq(model="llama-3.3-70b-versatile", api_key=os.getenv("GROQ_API_KEY"))
+            api_key = os.getenv("GROQ_API_KEY")
+            if not api_key:
+                raise ValueError("GROQ_API_KEY is not set in .env")
+            llm = ChatGroq(model="qwen/qwen3-32b", api_key=api_key)
             return MultiQueryRetriever.from_llm(retriever=base_retriever, llm=llm)
         else:
             raise ValueError(f"Unknown retrieval strategy: {strategy}")
