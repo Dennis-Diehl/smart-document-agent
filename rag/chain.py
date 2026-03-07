@@ -1,6 +1,6 @@
 # Assembles the RAG chain connecting retriever and LLM
 from langchain_groq import ChatGroq
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 from dotenv import load_dotenv
 import os
@@ -12,9 +12,13 @@ class RAGChain:
         self.retriever = retriever
 
         if llm == "groq":
-            self.llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2, api_key=os.getenv("GROQ_API_KEY"))
-        elif llm == "gemini":
-            self.llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2, api_key=os.getenv("GOOGLE_API_KEY"))
+            self.llm = ChatGroq(model="llama-3.3-70b-versatile", api_key=os.getenv("GROQ_API_KEY"))
+        elif llm == "openrouter":
+            self.llm = ChatOpenAI(
+                model="stepfun/step-3.5-flash:free",
+                api_key=os.getenv("OPENROUTER_API_KEY"),
+                #base_url="https://openrouter.ai/api/v1",
+            )
 
     def run(self, query):
         """
