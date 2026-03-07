@@ -17,7 +17,7 @@ class RAGChain:
             self.llm = ChatOpenAI(
                 model="stepfun/step-3.5-flash:free",
                 api_key=os.getenv("OPENROUTER_API_KEY"),
-                #base_url="https://openrouter.ai/api/v1",
+                base_url="https://openrouter.ai/api/v1",
             )
 
     def run(self, query):
