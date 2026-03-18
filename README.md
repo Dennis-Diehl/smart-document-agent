@@ -19,14 +19,6 @@
 
 ---
 
-## Demo
-
-> Screenshot or GIF here
->
-> ![Demo](assets/demo.png)
-
----
-
 ## Tech Stack
 
 | Layer | Technology |
