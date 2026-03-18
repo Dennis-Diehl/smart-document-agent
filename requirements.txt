@@ -25,6 +25,9 @@ ragas==0.4.3
 # UI
 streamlit==1.55.0
 
+# Web Search Fallback
+duckduckgo-search==8.0.1
+
 # Utilities
 python-dotenv==1.2.2
 
